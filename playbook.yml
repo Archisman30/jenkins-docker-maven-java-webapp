@@ -1,0 +1,19 @@
+- name: Playbook for packages.yml
+  hosts: webserver
+  vars:
+   pkgs:
+     - docker
+     - git
+     - maven
+     - java-1.8.0-openjdk -y
+   tasks:
+     - name: "INSTALLING THE REQUIRED SOFTWARES"
+       package:
+         name: "{{item}}"
+         state: present
+       loop: "{{pkgs}}"
+     - name: "ENABLING THE SERVICES"
+       service:
+         name: docker
+         state: started
+         enabled: true
